@@ -14,27 +14,27 @@ The device-wide timeout offers **Leave unchanged**, **Set effectively unreachabl
 
 ## Run after reconnecting
 
-The terminal entry and GUI share the same ADB engine, saved checkpoints, and final checks. Install this project as described in the [project README](../README.md). The current application requires Python 3.11+, PySide6, and ADB. These dependencies replace the original standalone script's Python 3.9-only requirement.
+The terminal entry and GUI share the same ADB engine, saved checkpoints, and final checks. Install this project as described in the [project README](../../README.md). The current application requires Python 3.11+, PySide6, and ADB. These dependencies replace the original standalone script's Python 3.9-only requirement.
 
-Unlock the phone, authorize USB debugging, and leave it idle throughout the run. The script moves through Settings automatically. Run:
+Unlock the phone, authorize USB debugging, and leave it idle throughout the run. The script moves through Settings automatically. Run from the repository root:
 
 ```bash
-mise exec -- python vivo-background-power/allow-background-power.py
+mise exec -- python presets/vivo-background-power/allow-background-power.py
 ```
 
-The application includes the matching JAR in `vivo_power/resources`; source-tree runs can also find the original bundle copy. Keep the shared `vivo_power` package with this entry script when moving the project. Native sessions use Qt's per-phone process lock to prevent concurrent navigation. The script finds ADB on PATH or in `~/Android/Sdk/platform-tools`; use `--adb /path/to/adb` if needed, or `--serial SERIAL` for a particular phone.
+The application includes the matching JAR in `vivo_power/resources`; source-tree runs can also find the bundle copy in `presets/vivo-background-power/`. Keep the whole project folder when moving the installation so this entry script and the shared `vivo_power` package remain together. Native sessions use Qt's per-phone process lock to prevent concurrent navigation. The script finds ADB on PATH or in `~/Android/Sdk/platform-tools`; use `--adb /path/to/adb` if needed, or `--serial SERIAL` for a particular phone.
 
 To run only one app later:
 
 ```bash
-mise exec -- python vivo-background-power/allow-background-power.py \
+mise exec -- python presets/vivo-background-power/allow-background-power.py \
   --package com.documentsui.shortcut
 ```
 
 By default, all per-package changes and native UI attempts cover every package in the main profile, including system apps. Unavailable native controls are recorded as skipped. To exclude system apps from all per-package steps, run:
 
 ```bash
-mise exec -- python vivo-background-power/allow-background-power.py \
+mise exec -- python presets/vivo-background-power/allow-background-power.py \
   --exclude-system
 ```
 
@@ -45,7 +45,7 @@ The script cannot change a native setting that vivo does not expose, and it does
 To make the unused-app timeout effectively unreachable for existing and future apps, add:
 
 ```bash
-mise exec -- python vivo-background-power/allow-background-power.py \
+mise exec -- python presets/vivo-background-power/allow-background-power.py \
   --unreachable-unused-timeout
 ```
 
@@ -73,6 +73,6 @@ Temporary phone files are removed only after the owned helper is confirmed stopp
 
 `--verify-only` measures selected settings without applying them; native checks still require the phone idle. `--no-native` runs the Android policies without navigating Settings. `--state PATH` selects a checkpoint store, and `--report PATH` selects the exported report. The original flags and system-app inclusion defaults remain available.
 
-`VivoBackgroundPower.java` and `PackageInventory.java` are the sources of the included helper JAR. See [VALIDATION.md](../VALIDATION.md) for the new one-app physical checks and outstanding Windows, lifecycle, and full-run acceptance. The earlier 629-app record above describes the original bundle.
+`VivoBackgroundPower.java` and `PackageInventory.java` are the sources of the included helper JAR. See [VALIDATION.md](../../VALIDATION.md) for the new one-app physical checks and outstanding Windows, lifecycle, and full-run acceptance. The earlier 629-app record above describes the original bundle.
 
-See the [ADBeam me up user guide](../README.md) for GUI installation, presets, app selection, settings, pause/resume, and reports.
+See the [ADBeam me up user guide](../../README.md) for GUI installation, presets, app selection, settings, pause/resume, and reports.

@@ -1,6 +1,6 @@
 # Validation record
 
-Updated: 1 October 2026. The original bundle's prior full run is documented separately in `vivo-background-power/README.md`.
+Updated: 1 October 2026. The original bundle's prior full run is documented separately in [`presets/vivo-background-power/README.md`](presets/vivo-background-power/README.md).
 
 Final automated result: **139 tests passed** in 9.372 seconds using the installed MsPy environment. Both helper JAR copies were rebuilt after the process-ownership changes, and their embedded source hashes match the Java sources. On 30 September, the wheel then current was compared with its application modules and prebuilt helper, installed in an isolated temporary directory, and launched successfully with Qt offscreen on Linux; shortcut repair stayed disabled for that installed wheel. The portable setup was exercised with the actual MsPy runtime as described below.
 

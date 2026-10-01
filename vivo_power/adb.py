@@ -28,7 +28,7 @@ class AdbEngine:
         self.resource_callback = resource_callback
         self.pending_cleanup = []
         bundled = Path(__file__).resolve().parent / "resources" / "vivo-background-power.jar"
-        self.jar_path = bundled if bundled.is_file() else Path(__file__).resolve().parent.parent / "vivo-background-power" / "vivo-background-power.jar"
+        self.jar_path = bundled if bundled.is_file() else Path(__file__).resolve().parent.parent / "presets" / "vivo-background-power" / "vivo-background-power.jar"
         self._device_info = None
         self._inventory = {}
         self._commands = []

@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class NativeBundleTests(unittest.TestCase):
     def test_bundle_contains_matching_sources_and_packaged_copy(self):
-        bundle = ROOT / "vivo-background-power" / "vivo-background-power.jar"
+        bundle = ROOT / "presets" / "vivo-background-power" / "vivo-background-power.jar"
         with zipfile.ZipFile(bundle) as archive:
             self.assertTrue(archive.read("classes.dex").startswith(b"dex\n"))
             checksums = archive.read("META-INF/sources.sha256").decode().splitlines()
@@ -216,8 +216,8 @@ public class InventoryHarness {
         command.chmod(0o755)
         cls.environment = dict(os.environ, PATH=str(binary) + os.pathsep + os.environ["PATH"])
         subprocess.run(["javac", "--release", "8", "-d", str(cls.directory), *map(str, cls.directory.rglob("*.java")),
-                        str(ROOT / "vivo-background-power" / "VivoBackgroundPower.java"),
-                        str(ROOT / "vivo-background-power" / "PackageInventory.java")], check=True, capture_output=True, text=True)
+                        str(ROOT / "presets" / "vivo-background-power" / "VivoBackgroundPower.java"),
+                        str(ROOT / "presets" / "vivo-background-power" / "PackageInventory.java")], check=True, capture_output=True, text=True)
 
     @classmethod
     def tearDownClass(cls):

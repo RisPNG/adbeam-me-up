@@ -4,7 +4,7 @@ from functools import partial
 from pathlib import Path
 import sys
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from vivo_power.adb import AdbEngine, AdbError
 from vivo_power.run import RunController, recover_phone

@@ -91,7 +91,7 @@ class StateRunTests(unittest.TestCase):
                 raise AdbError("Inventory transport disconnected")
 
         engine = FailedInventory()
-        entry = Path(__file__).resolve().parents[1] / "vivo-background-power" / "allow-background-power.py"
+        entry = Path(__file__).resolve().parents[1] / "presets" / "vivo-background-power" / "allow-background-power.py"
         errors = io.StringIO()
         with patch("vivo_power.adb.AdbEngine", return_value=engine), patch.object(sys, "argv", [str(entry), "--state", str(self.store.path)]), patch.object(sys, "path", sys.path.copy()), redirect_stderr(errors):
             with self.assertRaises(SystemExit) as exited:

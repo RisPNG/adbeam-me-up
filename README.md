@@ -68,7 +68,7 @@ The application currently ships with one preset:
 
 | Preset | Purpose | Validated scope | Guide |
 | --- | --- | --- | --- |
-| **Persist V2413** | Background execution, unused-app policies, vivo background power controls, and Doze requests | vivo X200 Pro, Android 16 / OriginOS 6, English Settings, main profile (0) | [Settings, limitations, and terminal usage](vivo-background-power/README.md) |
+| **Persist V2413** | Background execution, unused-app policies, vivo background power controls, and Doze requests | vivo X200 Pro, Android 16 / OriginOS 6, English Settings, main profile (0) | [Settings, limitations, and terminal usage](presets/vivo-background-power/README.md) |
 
 The preset guide explains shared-UID effects, device-wide overrides, native control availability, and the distinction between command acceptance and verified readback. Other configurations show their validation limits in the application.
 
@@ -76,7 +76,7 @@ The preset guide explains shared-UID effects, device-wide overrides, native cont
 
 GUI checkpoints live under Qt's writable application-data directory for your account. Use `--state-dir PATH` to choose another location. The preset's terminal entry uses the operating system's user state directory. State and reports contain phone identifiers, installed package names, and command results. They are local files; export and share them deliberately.
 
-Runs and verification evidence are isolated by preset ID. Reports without a preset ID belong to Persist V2413 for compatibility with earlier versions. The included preset's [terminal entry](vivo-background-power/README.md) uses the same engine and checkpoint/report semantics as the GUI.
+Runs and verification evidence are isolated by preset ID. Reports without a preset ID belong to Persist V2413 for compatibility with earlier versions. The included preset's [terminal entry](presets/vivo-background-power/README.md) uses the same engine and checkpoint/report semantics as the GUI.
 
 ## Development and validation
 
@@ -97,8 +97,10 @@ QT_QPA_PLATFORM=offscreen mise exec -- .venv/bin/python -m unittest discover -s 
 mise exec -- python tools/build_native.py
 ```
 
-The native test suite compiles and executes the actual Java source against an isolated UIAutomator simulator, so a JDK is required for those tests. Native rebuilds additionally need Android SDK platform and build-tools files; see [native-build.md](vivo-background-power/native-build.md). A wheel includes the matching prebuilt helper.
+The native test suite compiles and executes the actual Java source against an isolated UIAutomator simulator, so a JDK is required for those tests. Native rebuilds additionally need Android SDK platform and build-tools files; see [native-build.md](presets/vivo-background-power/native-build.md). A wheel includes the matching prebuilt helper.
 
-Presets are defined in [`vivo_power/presets/`](vivo_power/presets/) and registered in [`registry.py`](vivo_power/presets/registry.py). Each `Preset` descriptor supplies its engine, run controller, options panel, device observations, setting labels, and result columns. A preset's descriptor and sibling GUI module keep its workflow together, while the shared window handles connection, inventory, progress, history, and installation. To add a preset, implement its descriptor and panel and register it alongside the existing preset.
+Preset bundles live under the top-level [`presets/`](presets/) directory. Each bundle keeps its terminal entry, native sources and helper JAR, usage guide, and build notes together. The included bundle is [`presets/vivo-background-power/`](presets/vivo-background-power/); the matching helper is also packaged in `vivo_power/resources/` for installed applications.
+
+Runtime preset descriptors and GUI panels live in [`vivo_power/presets/`](vivo_power/presets/) and are registered in [`registry.py`](vivo_power/presets/registry.py). Each `Preset` descriptor supplies its engine, run controller, options panel, device observations, setting labels, and result columns. A preset's descriptor and sibling GUI module keep its workflow together, while the shared window handles connection, inventory, progress, history, and installation. To add a preset, implement its descriptor and panel, register it alongside the existing preset, and keep any bundle assets and documentation under `presets/`.
 
 See [VALIDATION.md](VALIDATION.md) for the exact automated, Linux GUI, and physical-device checks completed, and outstanding Windows and broader phone acceptance checks. The original bundle's full run is a baseline, not evidence of a full GUI run.

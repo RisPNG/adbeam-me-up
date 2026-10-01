@@ -16,7 +16,7 @@ def main():
     parser.add_argument("--sdk", type=Path, default=Path(os.environ.get("ANDROID_SDK_ROOT", os.environ.get("ANDROID_HOME", str(Path.home() / "Android" / "Sdk")))))
     parser.add_argument("--platform", default="android-37.0")
     parser.add_argument("--build-tools", default="36.0.0")
-    parser.add_argument("--output", type=Path, default=root / "vivo-background-power" / "vivo-background-power.jar")
+    parser.add_argument("--output", type=Path, default=root / "presets" / "vivo-background-power" / "vivo-background-power.jar")
     args = parser.parse_args()
     platform = args.sdk / "platforms" / args.platform
     libraries = [platform / "android.jar", platform / "uiautomator.jar", platform / "optional" / "android.test.base.jar"]
@@ -29,7 +29,7 @@ def main():
         tools[name] = shutil.which(name)
         if tools[name] is None:
             parser.error(f"A JDK with {name} on PATH is required")
-    sources = [root / "vivo-background-power" / name for name in ("VivoBackgroundPower.java", "PackageInventory.java")]
+    sources = [root / "presets" / "vivo-background-power" / name for name in ("VivoBackgroundPower.java", "PackageInventory.java")]
     with tempfile.TemporaryDirectory(prefix="vivo-native-build-") as temporary:
         build = Path(temporary)
         classes = build / "classes"
